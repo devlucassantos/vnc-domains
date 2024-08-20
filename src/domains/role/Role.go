@@ -6,8 +6,13 @@ import (
 	"time"
 )
 
+const (
+	AnonymousRoleCode = "anonymous"
+)
+
 type Role struct {
 	id          uuid.UUID
+	code        string
 	description string
 	active      bool
 	createdAt   time.Time
@@ -20,6 +25,10 @@ func (instance *Role) NewUpdater() *builder {
 
 func (instance *Role) Id() uuid.UUID {
 	return instance.id
+}
+
+func (instance *Role) Code() string {
+	return instance.code
 }
 
 func (instance *Role) Description() string {

@@ -18,7 +18,7 @@ func NewBuilder() *builder {
 }
 
 func (instance *builder) Id(id uuid.UUID) *builder {
-	if !utils.IsUUIDValid(id) {
+	if !utils.IsUuidValid(id) {
 		instance.invalidFields = append(instance.invalidFields, "O ID do partido é inválido")
 		return instance
 	}
@@ -51,8 +51,7 @@ func (instance *builder) Acronym(acronym string) *builder {
 }
 
 func (instance *builder) ImageUrl(imageUrl string) *builder {
-	imageUrl = strings.Trim(imageUrl, "/")
-	if len(imageUrl) == 0 {
+	if !utils.IsUrlValid(imageUrl) {
 		instance.invalidFields = append(instance.invalidFields, "A URL da imagem do partido é inválida")
 		return instance
 	}
@@ -85,7 +84,7 @@ func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 
 func (instance *builder) Build() (*Party, error) {
 	if len(instance.invalidFields) > 0 {
-		return nil, errors.New(strings.Join(instance.invalidFields, ";"))
+		return nil, errors.New(strings.Join(instance.invalidFields, "; "))
 	}
 	return instance.party, nil
 }

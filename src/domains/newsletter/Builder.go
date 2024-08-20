@@ -2,8 +2,7 @@ package newsletter
 
 import (
 	"errors"
-	"fmt"
-	"github.com/devlucassantos/vnc-domains/src/domains/proposition"
+	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/utils"
 	"github.com/google/uuid"
 	"strings"
@@ -20,30 +19,11 @@ func NewBuilder() *builder {
 }
 
 func (instance *builder) Id(id uuid.UUID) *builder {
-	if !utils.IsUUIDValid(id) {
+	if !utils.IsUuidValid(id) {
 		instance.invalidFields = append(instance.invalidFields, "O ID do boletim é inválido")
 		return instance
 	}
 	instance.newsletter.id = id
-	return instance
-}
-
-func (instance *builder) Title(title string) *builder {
-	if len(title) < 10 {
-		instance.newsletter.title = fmt.Sprintf("Boletim Diário")
-		return instance
-	}
-	instance.newsletter.title = title
-	return instance
-}
-
-func (instance *builder) Content(content string) *builder {
-	content = strings.TrimSpace(content)
-	if len(content) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "O conteúdo do boletim é inválido")
-		return instance
-	}
-	instance.newsletter.content = content
 	return instance
 }
 
@@ -56,8 +36,28 @@ func (instance *builder) ReferenceDate(referenceDate time.Time) *builder {
 	return instance
 }
 
-func (instance *builder) Propositions(propositions []proposition.Proposition) *builder {
-	instance.newsletter.propositions = propositions
+func (instance *builder) Title(title string) *builder {
+	title = strings.TrimSpace(title)
+	if len(title) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "O título do boletim é inválido")
+		return instance
+	}
+	instance.newsletter.title = title
+	return instance
+}
+
+func (instance *builder) Description(description string) *builder {
+	description = strings.TrimSpace(description)
+	if len(description) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "A descrição do boletim é inválida")
+		return instance
+	}
+	instance.newsletter.description = description
+	return instance
+}
+
+func (instance *builder) Article(article article.Article) *builder {
+	instance.newsletter.article = article
 	return instance
 }
 
@@ -86,7 +86,7 @@ func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 
 func (instance *builder) Build() (*Newsletter, error) {
 	if len(instance.invalidFields) > 0 {
-		return nil, errors.New(strings.Join(instance.invalidFields, ";"))
+		return nil, errors.New(strings.Join(instance.invalidFields, "; "))
 	}
 	return instance.newsletter, nil
 }

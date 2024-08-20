@@ -1,7 +1,7 @@
 package newsletter
 
 import (
-	"github.com/devlucassantos/vnc-domains/src/domains/proposition"
+	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/google/uuid"
 	"reflect"
 	"time"
@@ -9,10 +9,10 @@ import (
 
 type Newsletter struct {
 	id            uuid.UUID
-	title         string
-	content       string
 	referenceDate time.Time
-	propositions  []proposition.Proposition
+	title         string
+	description   string
+	article       article.Article
 	active        bool
 	createdAt     time.Time
 	updatedAt     time.Time
@@ -26,20 +26,20 @@ func (instance *Newsletter) Id() uuid.UUID {
 	return instance.id
 }
 
-func (instance *Newsletter) Title() string {
-	return instance.title
-}
-
-func (instance *Newsletter) Content() string {
-	return instance.content
-}
-
 func (instance *Newsletter) ReferenceDate() time.Time {
 	return instance.referenceDate
 }
 
-func (instance *Newsletter) Propositions() []proposition.Proposition {
-	return instance.propositions
+func (instance *Newsletter) Title() string {
+	return instance.title
+}
+
+func (instance *Newsletter) Description() string {
+	return instance.description
+}
+
+func (instance *Newsletter) Article() article.Article {
+	return instance.article
 }
 
 func (instance *Newsletter) Active() bool {

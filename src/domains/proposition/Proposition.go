@@ -1,8 +1,10 @@
 package proposition
 
 import (
+	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/domains/deputy"
-	"github.com/devlucassantos/vnc-domains/src/domains/organization"
+	"github.com/devlucassantos/vnc-domains/src/domains/external"
+	"github.com/devlucassantos/vnc-domains/src/domains/proptype"
 	"github.com/google/uuid"
 	"reflect"
 	"time"
@@ -16,8 +18,11 @@ type Proposition struct {
 	content         string
 	submittedAt     time.Time
 	imageUrl        string
+	_type           proptype.PropositionType
+	specificType    string
 	deputies        []deputy.Deputy
-	organizations   []organization.Organization
+	externalAuthors []external.ExternalAuthor
+	article         article.Article
 	active          bool
 	createdAt       time.Time
 	updatedAt       time.Time
@@ -55,12 +60,24 @@ func (instance *Proposition) ImageUrl() string {
 	return instance.imageUrl
 }
 
+func (instance *Proposition) Type() proptype.PropositionType {
+	return instance._type
+}
+
+func (instance *Proposition) SpecificType() string {
+	return instance.specificType
+}
+
 func (instance *Proposition) Deputies() []deputy.Deputy {
 	return instance.deputies
 }
 
-func (instance *Proposition) Organizations() []organization.Organization {
-	return instance.organizations
+func (instance *Proposition) ExternalAuthors() []external.ExternalAuthor {
+	return instance.externalAuthors
+}
+
+func (instance *Proposition) Article() article.Article {
+	return instance.article
 }
 
 func (instance *Proposition) Active() bool {
