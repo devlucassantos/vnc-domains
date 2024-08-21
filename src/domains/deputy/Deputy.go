@@ -75,7 +75,7 @@ func (instance *Deputy) IsEqual(deputy Deputy) bool {
 		instance.name == deputy.name &&
 		instance.electoralName == deputy.electoralName &&
 		instance.imageUrl == deputy.imageUrl &&
-		instance.party.Code() == deputy.party.Code()
+		instance.party.IsEqual(deputy.party)
 }
 
 func (instance *Deputy) IsZero() bool {

@@ -1,15 +1,12 @@
 package user
 
 import (
-	"crypto/rsa"
-	"encoding/base64"
 	"errors"
 	"github.com/devlucassantos/vnc-domains/src/domains/role"
 	"github.com/devlucassantos/vnc-domains/src/utils"
 	"github.com/golang-jwt/jwt"
 	"github.com/google/uuid"
 	"github.com/labstack/gommon/log"
-	"os"
 	"strings"
 	"time"
 )
@@ -80,7 +77,7 @@ func (instance *builder) HashedPassword(hashedPassword string) *builder {
 }
 
 func (instance *builder) Tokens(sessionId uuid.UUID) *builder {
-	rsaPrivateKey, err := getRsaPrivateKeyFromEnvironmentVariable("SERVER_ACCESS_TOKEN_PRIVATE_KEY")
+	rsaPrivateKey, err := utils.GetRsaPrivateKeyFromEnvironmentVariable("SERVER_ACCESS_TOKEN_PRIVATE_KEY")
 	if err != nil {
 		log.Error("Erro durante a extração da chave privada de atualização: ", err.Error())
 		instance.invalidFields = append(instance.invalidFields, "Erro durante a geração dos tokens do usuário")
@@ -93,7 +90,7 @@ func (instance *builder) Tokens(sessionId uuid.UUID) *builder {
 		instance.invalidFields = append(instance.invalidFields, "Erro durante a geração dos tokens do usuário")
 	}
 
-	rsaPrivateKey, err = getRsaPrivateKeyFromEnvironmentVariable("SERVER_REFRESH_TOKEN_PRIVATE_KEY")
+	rsaPrivateKey, err = utils.GetRsaPrivateKeyFromEnvironmentVariable("SERVER_REFRESH_TOKEN_PRIVATE_KEY")
 	if err != nil {
 		log.Error("Erro durante a extração da chave privada de atualização: ", err.Error())
 		instance.invalidFields = append(instance.invalidFields, "Erro durante a geração dos tokens do usuário")
@@ -107,22 +104,6 @@ func (instance *builder) Tokens(sessionId uuid.UUID) *builder {
 	}
 
 	return instance
-}
-
-func getRsaPrivateKeyFromEnvironmentVariable(environmentVariable string) (*rsa.PrivateKey, error) {
-	privateKeyBytes, err := base64.StdEncoding.DecodeString(os.Getenv(environmentVariable))
-	if err != nil {
-		log.Error("Erro durante a decodificação da chave privada: ", err.Error())
-		return nil, err
-	}
-
-	rsaPrivateKey, err := jwt.ParseRSAPrivateKeyFromPEM(privateKeyBytes)
-	if err != nil {
-		log.Error("Erro durante a construção da chave privada: ", err.Error())
-		return nil, err
-	}
-
-	return rsaPrivateKey, nil
 }
 
 func (instance *builder) Active(active bool) *builder {

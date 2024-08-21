@@ -55,7 +55,7 @@ func (instance *builder) ImageUrl(imageUrl string) *builder {
 }
 
 func (instance *builder) AverageRating(averageRating float64) *builder {
-	if averageRating < 1 && averageRating > 5 {
+	if averageRating < 0 || averageRating > 5 {
 		instance.invalidFields = append(instance.invalidFields, "O valor da média da avaliação da matéria pelo público é inválido")
 		return instance
 	}
@@ -63,12 +63,12 @@ func (instance *builder) AverageRating(averageRating float64) *builder {
 	return instance
 }
 
-func (instance *builder) NumberOfRatings(NumberOfRatings int) *builder {
-	if NumberOfRatings < 0 {
+func (instance *builder) NumberOfRatings(numberOfRatings int) *builder {
+	if numberOfRatings < 0 {
 		instance.invalidFields = append(instance.invalidFields, "O número de avaliações da matéria pelo público é inválido")
 		return instance
 	}
-	instance.article.numberOfRatings = NumberOfRatings
+	instance.article.numberOfRatings = numberOfRatings
 	return instance
 }
 
