@@ -18,11 +18,20 @@ func NewBuilder() *builder {
 }
 
 func (instance *builder) Id(id uuid.UUID) *builder {
-	if !utils.IsUUIDValid(id) {
+	if !utils.IsUuidValid(id) {
 		instance.invalidFields = append(instance.invalidFields, "O ID do função é inválido")
 		return instance
 	}
 	instance.role.id = id
+	return instance
+}
+
+func (instance *builder) Code(code string) *builder {
+	if len(code) < 2 {
+		instance.invalidFields = append(instance.invalidFields, "O código da função é inválido")
+		return instance
+	}
+	instance.role.code = code
 	return instance
 }
 
@@ -60,7 +69,7 @@ func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 
 func (instance *builder) Build() (*Role, error) {
 	if len(instance.invalidFields) > 0 {
-		return nil, errors.New(strings.Join(instance.invalidFields, ";"))
+		return nil, errors.New(strings.Join(instance.invalidFields, "; "))
 	}
 	return instance.role, nil
 }

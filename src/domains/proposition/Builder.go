@@ -3,8 +3,10 @@ package proposition
 import (
 	"errors"
 	"fmt"
+	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/domains/deputy"
-	"github.com/devlucassantos/vnc-domains/src/domains/organization"
+	"github.com/devlucassantos/vnc-domains/src/domains/external"
+	"github.com/devlucassantos/vnc-domains/src/domains/proptype"
 	"github.com/devlucassantos/vnc-domains/src/utils"
 	"github.com/google/uuid"
 	"strings"
@@ -21,7 +23,7 @@ func NewBuilder() *builder {
 }
 
 func (instance *builder) Id(id uuid.UUID) *builder {
-	if !utils.IsUUIDValid(id) {
+	if !utils.IsUuidValid(id) {
 		instance.invalidFields = append(instance.invalidFields, "O ID da proposição é inválido")
 		return instance
 	}
@@ -48,11 +50,6 @@ func (instance *builder) Title(title string) *builder {
 }
 
 func (instance *builder) OriginalTextUrl(originalTextUrl string) *builder {
-	originalTextUrl = strings.Trim(originalTextUrl, "/")
-	if len(originalTextUrl) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "A URL do texto original da proposição é inválida")
-		return instance
-	}
 	instance.proposition.originalTextUrl = originalTextUrl
 	return instance
 }
@@ -77,12 +74,26 @@ func (instance *builder) SubmittedAt(submittedAt time.Time) *builder {
 }
 
 func (instance *builder) ImageUrl(imageUrl string) *builder {
-	imageUrl = strings.Trim(imageUrl, "/")
-	if len(imageUrl) == 0 {
+	if !utils.IsUrlValid(imageUrl) {
 		instance.invalidFields = append(instance.invalidFields, "A URL da imagem da proposição é inválida")
 		return instance
 	}
 	instance.proposition.imageUrl = imageUrl
+	return instance
+}
+
+func (instance *builder) Type(propositionType proptype.PropositionType) *builder {
+	instance.proposition._type = propositionType
+	return instance
+}
+
+func (instance *builder) SpecificType(specificType string) *builder {
+	specificType = strings.TrimSpace(specificType)
+	if len(specificType) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "O tipo específico da proposição é inválido")
+		return instance
+	}
+	instance.proposition.specificType = specificType
 	return instance
 }
 
@@ -91,8 +102,13 @@ func (instance *builder) Deputies(deputies []deputy.Deputy) *builder {
 	return instance
 }
 
-func (instance *builder) Organizations(organizations []organization.Organization) *builder {
-	instance.proposition.organizations = organizations
+func (instance *builder) ExternalAuthors(externalAuthors []external.ExternalAuthor) *builder {
+	instance.proposition.externalAuthors = externalAuthors
+	return instance
+}
+
+func (instance *builder) Article(article article.Article) *builder {
+	instance.proposition.article = article
 	return instance
 }
 
@@ -121,7 +137,7 @@ func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 
 func (instance *builder) Build() (*Proposition, error) {
 	if len(instance.invalidFields) > 0 {
-		return nil, errors.New(strings.Join(instance.invalidFields, ";"))
+		return nil, errors.New(strings.Join(instance.invalidFields, "; "))
 	}
 	return instance.proposition, nil
 }

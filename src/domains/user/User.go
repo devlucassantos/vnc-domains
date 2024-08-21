@@ -7,17 +7,23 @@ import (
 	"time"
 )
 
+const (
+	RefreshTokenTimeout = time.Hour * 24 * 7
+	AccessTokenTimeout  = time.Minute * 15
+)
+
 type User struct {
-	id        uuid.UUID
-	firstName string
-	lastName  string
-	email     string
-	password  string
-	hash      string
-	roles     []role.Role
-	active    bool
-	createdAt time.Time
-	updatedAt time.Time
+	id           uuid.UUID
+	firstName    string
+	lastName     string
+	email        string
+	password     string
+	roles        []role.Role
+	accessToken  string
+	refreshToken string
+	active       bool
+	createdAt    time.Time
+	updatedAt    time.Time
 }
 
 func (instance *User) NewUpdater() *builder {
@@ -44,12 +50,16 @@ func (instance *User) Password() string {
 	return instance.password
 }
 
-func (instance *User) Hash() string {
-	return instance.hash
-}
-
 func (instance *User) Roles() []role.Role {
 	return instance.roles
+}
+
+func (instance *User) AccessToken() string {
+	return instance.accessToken
+}
+
+func (instance *User) RefreshToken() string {
+	return instance.refreshToken
 }
 
 func (instance *User) Active() bool {
