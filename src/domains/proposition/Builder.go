@@ -6,7 +6,6 @@ import (
 	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/domains/deputy"
 	"github.com/devlucassantos/vnc-domains/src/domains/external"
-	"github.com/devlucassantos/vnc-domains/src/domains/proptype"
 	"github.com/devlucassantos/vnc-domains/src/utils"
 	"github.com/google/uuid"
 	"strings"
@@ -79,11 +78,6 @@ func (instance *builder) ImageUrl(imageUrl string) *builder {
 		return instance
 	}
 	instance.proposition.imageUrl = imageUrl
-	return instance
-}
-
-func (instance *builder) Type(propositionType proptype.PropositionType) *builder {
-	instance.proposition._type = propositionType
 	return instance
 }
 

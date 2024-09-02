@@ -2,7 +2,6 @@ package utils
 
 import (
 	"github.com/google/uuid"
-	"net/mail"
 	"regexp"
 	"unicode"
 )
@@ -16,13 +15,13 @@ func IsUuidValid(id uuid.UUID) bool {
 }
 
 func IsUrlValid(url string) bool {
-	regex := regexp.MustCompile(`^(http|https)://[a-zA-Z0-9.-]+(:[0-9]+)?(/.*)?$`)
+	regex := regexp.MustCompile(`^(?:https?://)?(w{3}\.)?[\w_-]+((\.\w{2,}){1,3})(/([^/\n]+/?)*(\?[\w_-]+=[^?/&]*(&[\w_-]+=[^?/&]*)*)?)?$`)
 	return regex.MatchString(url)
 }
 
 func IsEmailValid(email string) bool {
-	_, err := mail.ParseAddress(email)
-	return err == nil
+	regex := regexp.MustCompile(`^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
+	return regex.MatchString(email)
 }
 
 func IsPasswordValid(password string) bool {

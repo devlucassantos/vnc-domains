@@ -58,21 +58,21 @@ func (instance *builder) Email(email string) *builder {
 
 func (instance *builder) Password(password string) *builder {
 	if !utils.IsPasswordValid(password) {
-		instance.invalidFields = append(instance.invalidFields, "A senha do usuário é inválida, a senha precisa "+
-			"ter entre 8 e 50 caracteres e possuir letras e números")
+		instance.invalidFields = append(instance.invalidFields, "A senha do usuário é inválida. A senha precisa "+
+			"ter entre 8 e 50 caracteres e conter pelo menos uma letra e um número")
 		return instance
 	}
 	instance.user.password = password
 	return instance
 }
 
-func (instance *builder) Roles(roles []role.Role) *builder {
-	instance.user.roles = roles
+func (instance *builder) HashedPassword(hashedPassword string) *builder {
+	instance.user.password = hashedPassword
 	return instance
 }
 
-func (instance *builder) HashedPassword(hashedPassword string) *builder {
-	instance.user.password = hashedPassword
+func (instance *builder) Roles(roles []role.Role) *builder {
+	instance.user.roles = roles
 	return instance
 }
 
@@ -103,6 +103,16 @@ func (instance *builder) Tokens(sessionId uuid.UUID) *builder {
 		instance.invalidFields = append(instance.invalidFields, "Erro durante a geração dos tokens do usuário")
 	}
 
+	return instance
+}
+
+func (instance *builder) ActivationCode(activationCode string) *builder {
+	if len(activationCode) != 6 {
+		instance.invalidFields = append(instance.invalidFields, "O código de ativação é inválido. O código "+
+			"de ativação deve ter exatamente 6 caracteres")
+		return instance
+	}
+	instance.user.activationCode = activationCode
 	return instance
 }
 

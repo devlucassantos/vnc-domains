@@ -1,6 +1,7 @@
 package article
 
 import (
+	"github.com/devlucassantos/vnc-domains/src/domains/articletype"
 	"github.com/google/uuid"
 	"reflect"
 	"time"
@@ -15,7 +16,8 @@ type Article struct {
 	numberOfRatings   int
 	userRating        int
 	viewLater         bool
-	_type             string
+	viewLaterSetAt    time.Time
+	_type             articletype.ArticleType
 	referenceDateTime time.Time
 	active            bool
 	createdAt         time.Time
@@ -58,7 +60,11 @@ func (instance *Article) ViewLater() bool {
 	return instance.viewLater
 }
 
-func (instance *Article) Type() string {
+func (instance *Article) ViewLaterSetAt() time.Time {
+	return instance.viewLaterSetAt
+}
+
+func (instance *Article) Type() articletype.ArticleType {
 	return instance._type
 }
 

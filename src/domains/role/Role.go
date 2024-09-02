@@ -7,7 +7,10 @@ import (
 )
 
 const (
-	AnonymousRoleCode = "anonymous"
+	AnonymousRoleCode    = "anonymous"
+	AdminRoleCode        = "ADMIN"
+	InactiveUserRoleCode = "INACTIVE_USER"
+	UserRoleCode         = "USER"
 )
 
 type Role struct {
