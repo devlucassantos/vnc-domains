@@ -2,6 +2,7 @@ package article
 
 import (
 	"errors"
+	"github.com/devlucassantos/vnc-domains/src/domains/articletype"
 	"github.com/devlucassantos/vnc-domains/src/utils"
 	"github.com/google/uuid"
 	"strings"
@@ -73,7 +74,7 @@ func (instance *builder) NumberOfRatings(numberOfRatings int) *builder {
 }
 
 func (instance *builder) UserRating(userRating int) *builder {
-	if userRating < 1 || userRating > 5 {
+	if userRating < 0 || userRating > 5 {
 		instance.invalidFields = append(instance.invalidFields, "O valor da avaliação da matéria é inválido")
 		return instance
 	}
@@ -86,12 +87,16 @@ func (instance *builder) ViewLater(viewLater bool) *builder {
 	return instance
 }
 
-func (instance *builder) Type(_type string) *builder {
-	_type = strings.TrimSpace(_type)
-	if len(_type) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "O tipo da matéria é inválido")
+func (instance *builder) ViewLaterSetAt(viewLaterSetAt time.Time) *builder {
+	if viewLaterSetAt.IsZero() {
+		instance.invalidFields = append(instance.invalidFields, "A data e hora em que a matéria foi marcada para ver depois são inválidas")
 		return instance
 	}
+	instance.article.viewLaterSetAt = viewLaterSetAt
+	return instance
+}
+
+func (instance *builder) Type(_type articletype.ArticleType) *builder {
 	instance.article._type = _type
 	return instance
 }

@@ -13,17 +13,18 @@ const (
 )
 
 type User struct {
-	id           uuid.UUID
-	firstName    string
-	lastName     string
-	email        string
-	password     string
-	roles        []role.Role
-	accessToken  string
-	refreshToken string
-	active       bool
-	createdAt    time.Time
-	updatedAt    time.Time
+	id             uuid.UUID
+	firstName      string
+	lastName       string
+	email          string
+	password       string
+	roles          []role.Role
+	accessToken    string
+	refreshToken   string
+	activationCode string
+	active         bool
+	createdAt      time.Time
+	updatedAt      time.Time
 }
 
 func (instance *User) NewUpdater() *builder {
@@ -60,6 +61,10 @@ func (instance *User) AccessToken() string {
 
 func (instance *User) RefreshToken() string {
 	return instance.refreshToken
+}
+
+func (instance *User) ActivationCode() string {
+	return instance.activationCode
 }
 
 func (instance *User) Active() bool {
