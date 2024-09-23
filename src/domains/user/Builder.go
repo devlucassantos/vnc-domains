@@ -52,7 +52,7 @@ func (instance *builder) Email(email string) *builder {
 		instance.invalidFields = append(instance.invalidFields, "O email do usuário é inválido")
 		return instance
 	}
-	instance.user.email = email
+	instance.user.email = strings.ToLower(email)
 	return instance
 }
 
