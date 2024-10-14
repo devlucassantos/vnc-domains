@@ -22,7 +22,7 @@ type Claims struct {
 
 func (instance Claims) Valid() error {
 	if instance.NotBefore.Time.Before(time.Now()) || instance.ExpirationTime.Time.After(time.Now()) {
-		return errors.New("este token é inválido")
+		return errors.New("this token is invalid")
 	}
 
 	return nil

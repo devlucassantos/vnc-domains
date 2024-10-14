@@ -20,7 +20,7 @@ func NewBuilder() *builder {
 
 func (instance *builder) Id(id uuid.UUID) *builder {
 	if !utils.IsUuidValid(id) {
-		instance.invalidFields = append(instance.invalidFields, "O ID do boletim é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The newsletter ID is invalid")
 		return instance
 	}
 	instance.newsletter.id = id
@@ -29,7 +29,7 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 
 func (instance *builder) ReferenceDate(referenceDate time.Time) *builder {
 	if referenceDate.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de referência do boletim é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The reference date of the newsletter is invalid")
 		return instance
 	}
 	instance.newsletter.referenceDate = referenceDate
@@ -39,7 +39,7 @@ func (instance *builder) ReferenceDate(referenceDate time.Time) *builder {
 func (instance *builder) Title(title string) *builder {
 	title = strings.TrimSpace(title)
 	if len(title) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "O título do boletim é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The newsletter title is invalid")
 		return instance
 	}
 	instance.newsletter.title = title
@@ -49,7 +49,7 @@ func (instance *builder) Title(title string) *builder {
 func (instance *builder) Description(description string) *builder {
 	description = strings.TrimSpace(description)
 	if len(description) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "A descrição do boletim é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The newsletter description is invalid")
 		return instance
 	}
 	instance.newsletter.description = description
@@ -68,7 +68,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de criação do registro do boletim é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The creation date of the newsletter record is invalid")
 		return instance
 	}
 	instance.newsletter.createdAt = createdAt
@@ -77,7 +77,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de atualização do registro do boletim é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The update date of the newsletter record is invalid")
 		return instance
 	}
 	instance.newsletter.updatedAt = updatedAt

@@ -19,7 +19,7 @@ func NewBuilder() *builder {
 
 func (instance *builder) Id(id uuid.UUID) *builder {
 	if !utils.IsUuidValid(id) {
-		instance.invalidFields = append(instance.invalidFields, "O ID do autor externo é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The external author ID is invalid")
 		return instance
 	}
 	instance.externalAuthor.id = id
@@ -29,7 +29,7 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 func (instance *builder) Name(name string) *builder {
 	name = strings.TrimSpace(name)
 	if len(name) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "O nome da autor externo é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The external author name is invalid")
 		return instance
 	}
 	instance.externalAuthor.name = name
@@ -39,7 +39,7 @@ func (instance *builder) Name(name string) *builder {
 func (instance *builder) Type(_type string) *builder {
 	_type = strings.TrimSpace(_type)
 	if len(_type) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "O tipo do autor externo é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The external author type is invalid")
 		return instance
 	}
 	instance.externalAuthor._type = _type
@@ -53,7 +53,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de criação do registro do autor externo é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The creation date of the external author record is invalid")
 		return instance
 	}
 	instance.externalAuthor.createdAt = createdAt
@@ -62,7 +62,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de atualização do registro do autor externo é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The update date of the external author record is invalid")
 		return instance
 	}
 	instance.externalAuthor.updatedAt = updatedAt

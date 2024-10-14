@@ -20,7 +20,7 @@ func NewBuilder() *builder {
 
 func (instance *builder) Id(id uuid.UUID) *builder {
 	if !utils.IsUuidValid(id) {
-		instance.invalidFields = append(instance.invalidFields, "O ID do(a) deputado(a) é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The deputy ID is invalid")
 		return instance
 	}
 	instance.deputy.id = id
@@ -29,7 +29,7 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 
 func (instance *builder) Code(code int) *builder {
 	if code <= 0 {
-		instance.invalidFields = append(instance.invalidFields, "O código do(a) deputado(a) é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The deputy code is invalid")
 		return instance
 	}
 	instance.deputy.code = code
@@ -44,7 +44,7 @@ func (instance *builder) Cpf(cpf string) *builder {
 func (instance *builder) Name(name string) *builder {
 	name = strings.TrimSpace(name)
 	if len(name) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "O nome do(a) deputado(a) é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The deputy name is invalid")
 		return instance
 	}
 	instance.deputy.name = name
@@ -58,7 +58,7 @@ func (instance *builder) ElectoralName(electoralName string) *builder {
 
 func (instance *builder) ImageUrl(imageUrl string) *builder {
 	if !utils.IsUrlValid(imageUrl) {
-		instance.invalidFields = append(instance.invalidFields, "A URL da imagem do(a) deputado(a) é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The deputy image URL is invalid")
 		return instance
 	}
 	instance.deputy.imageUrl = imageUrl
@@ -82,7 +82,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de criação do registro do(a) deputado(a) é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The creation date of the deputy record is invalid")
 		return instance
 	}
 	instance.deputy.createdAt = createdAt
@@ -91,7 +91,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de atualização do registro do(a) deputado(a) é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The update date of the deputy record is invalid")
 		return instance
 	}
 	instance.deputy.updatedAt = updatedAt

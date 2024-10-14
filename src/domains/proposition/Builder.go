@@ -23,7 +23,7 @@ func NewBuilder() *builder {
 
 func (instance *builder) Id(id uuid.UUID) *builder {
 	if !utils.IsUuidValid(id) {
-		instance.invalidFields = append(instance.invalidFields, "O ID da proposição é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The proposition ID is invalid")
 		return instance
 	}
 	instance.proposition.id = id
@@ -32,31 +32,35 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 
 func (instance *builder) Code(code int) *builder {
 	if code <= 0 {
-		instance.invalidFields = append(instance.invalidFields, "O código da proposição é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The proposition code is invalid")
 		return instance
 	}
 	instance.proposition.code = code
 	return instance
 }
 
+func (instance *builder) OriginalTextUrl(originalTextUrl string) *builder {
+	if !utils.IsUrlValid(originalTextUrl) {
+		instance.invalidFields = append(instance.invalidFields, "The original proposition URL is invalid")
+		return instance
+	}
+	instance.proposition.originalTextUrl = originalTextUrl
+	return instance
+}
+
 func (instance *builder) Title(title string) *builder {
 	if len(title) < 10 {
-		instance.proposition.title = fmt.Sprintf("Nova proposição de %s", time.Now())
+		instance.proposition.title = fmt.Sprintf("Nova proposição de %s", time.Now().Format("02/01/2006 às 15h04"))
 		return instance
 	}
 	instance.proposition.title = title
 	return instance
 }
 
-func (instance *builder) OriginalTextUrl(originalTextUrl string) *builder {
-	instance.proposition.originalTextUrl = originalTextUrl
-	return instance
-}
-
 func (instance *builder) Content(content string) *builder {
 	content = strings.TrimSpace(content)
 	if len(content) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "O conteúdo do resumo da proposição é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The content of the proposition summary is invalid")
 		return instance
 	}
 	instance.proposition.content = content
@@ -65,7 +69,7 @@ func (instance *builder) Content(content string) *builder {
 
 func (instance *builder) SubmittedAt(submittedAt time.Time) *builder {
 	if submittedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de apresentação da proposição é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The date of submission of the proposition is invalid")
 		return instance
 	}
 	instance.proposition.submittedAt = submittedAt
@@ -74,7 +78,7 @@ func (instance *builder) SubmittedAt(submittedAt time.Time) *builder {
 
 func (instance *builder) ImageUrl(imageUrl string) *builder {
 	if !utils.IsUrlValid(imageUrl) {
-		instance.invalidFields = append(instance.invalidFields, "A URL da imagem da proposição é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The proposition image URL is invalid")
 		return instance
 	}
 	instance.proposition.imageUrl = imageUrl
@@ -84,7 +88,7 @@ func (instance *builder) ImageUrl(imageUrl string) *builder {
 func (instance *builder) SpecificType(specificType string) *builder {
 	specificType = strings.TrimSpace(specificType)
 	if len(specificType) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "O tipo específico da proposição é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The specific type of proposition is invalid")
 		return instance
 	}
 	instance.proposition.specificType = specificType
@@ -113,7 +117,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de criação do registro da proposição é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The creation date of the proposition record is invalid")
 		return instance
 	}
 	instance.proposition.createdAt = createdAt
@@ -122,7 +126,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de atualização do registro da proposição é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The update date of the proposition record is invalid")
 		return instance
 	}
 	instance.proposition.updatedAt = updatedAt

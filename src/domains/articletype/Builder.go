@@ -19,7 +19,7 @@ func NewBuilder() *builder {
 
 func (instance *builder) Id(id uuid.UUID) *builder {
 	if !utils.IsUuidValid(id) {
-		instance.invalidFields = append(instance.invalidFields, "O ID do tipo da matéria é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The article type ID is invalid")
 		return instance
 	}
 	instance.articleType.id = id
@@ -29,7 +29,7 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 func (instance *builder) Description(description string) *builder {
 	description = strings.TrimSpace(description)
 	if len(description) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "A descrição do tipo da matéria é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The description of the article type is invalid")
 		return instance
 	}
 	instance.articleType.description = description
@@ -58,7 +58,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de criação do registro do tipo da matéria é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The creation date of the article type record is invalid")
 		return instance
 	}
 	instance.articleType.createdAt = createdAt
@@ -67,7 +67,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de atualização do registro do tipo da matéria é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The update date of the article type record is invalid")
 		return instance
 	}
 	instance.articleType.updatedAt = updatedAt

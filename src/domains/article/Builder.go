@@ -20,7 +20,7 @@ func NewBuilder() *builder {
 
 func (instance *builder) Id(id uuid.UUID) *builder {
 	if !utils.IsUuidValid(id) {
-		instance.invalidFields = append(instance.invalidFields, "O ID da matéria é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The article ID is invalid")
 		return instance
 	}
 	instance.article.id = id
@@ -29,7 +29,7 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 
 func (instance *builder) Title(title string) *builder {
 	if len(title) < 10 {
-		instance.invalidFields = append(instance.invalidFields, "O título da matéria é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The article title is invalid")
 		return instance
 	}
 	instance.article.title = title
@@ -39,7 +39,7 @@ func (instance *builder) Title(title string) *builder {
 func (instance *builder) Content(content string) *builder {
 	content = strings.TrimSpace(content)
 	if len(content) < 10 {
-		instance.invalidFields = append(instance.invalidFields, "O conteúdo da matéria é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The content of the article is invalid")
 		return instance
 	}
 	instance.article.content = content
@@ -48,7 +48,7 @@ func (instance *builder) Content(content string) *builder {
 
 func (instance *builder) ImageUrl(imageUrl string) *builder {
 	if !utils.IsUrlValid(imageUrl) {
-		instance.invalidFields = append(instance.invalidFields, "A URL da imagem da matéria é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The article image URL is invalid")
 		return instance
 	}
 	instance.article.imageUrl = imageUrl
@@ -57,7 +57,7 @@ func (instance *builder) ImageUrl(imageUrl string) *builder {
 
 func (instance *builder) AverageRating(averageRating float64) *builder {
 	if averageRating < 0 || averageRating > 5 {
-		instance.invalidFields = append(instance.invalidFields, "O valor da média da avaliação da matéria pelo público é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The value of the average public rating of the article is invalid")
 		return instance
 	}
 	instance.article.averageRating = averageRating
@@ -66,7 +66,7 @@ func (instance *builder) AverageRating(averageRating float64) *builder {
 
 func (instance *builder) NumberOfRatings(numberOfRatings int) *builder {
 	if numberOfRatings < 0 {
-		instance.invalidFields = append(instance.invalidFields, "O número de avaliações da matéria pelo público é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The number of public ratings of the article is invalid")
 		return instance
 	}
 	instance.article.numberOfRatings = numberOfRatings
@@ -75,7 +75,7 @@ func (instance *builder) NumberOfRatings(numberOfRatings int) *builder {
 
 func (instance *builder) UserRating(userRating int) *builder {
 	if userRating < 0 || userRating > 5 {
-		instance.invalidFields = append(instance.invalidFields, "O valor da avaliação da matéria é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The article rating value is invalid")
 		return instance
 	}
 	instance.article.userRating = userRating
@@ -89,7 +89,7 @@ func (instance *builder) ViewLater(viewLater bool) *builder {
 
 func (instance *builder) ViewLaterSetAt(viewLaterSetAt time.Time) *builder {
 	if viewLaterSetAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data e hora em que a matéria foi marcada para ver depois são inválidas")
+		instance.invalidFields = append(instance.invalidFields, "The date and time the article was marked for later viewing are invalid")
 		return instance
 	}
 	instance.article.viewLaterSetAt = viewLaterSetAt
@@ -103,7 +103,7 @@ func (instance *builder) Type(_type articletype.ArticleType) *builder {
 
 func (instance *builder) ReferenceDateTime(referenceDateTime time.Time) *builder {
 	if referenceDateTime.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data e hora de referência da matéria são inválidas")
+		instance.invalidFields = append(instance.invalidFields, "The reference date and time of the article are invalid")
 		return instance
 	}
 	instance.article.referenceDateTime = referenceDateTime
@@ -117,7 +117,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de criação do registro da matéria é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The creation date of the article record is invalid")
 		return instance
 	}
 	instance.article.createdAt = createdAt
@@ -126,7 +126,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de atualização do registro da matéria é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The update date of the article record is invalid")
 		return instance
 	}
 	instance.article.updatedAt = updatedAt
