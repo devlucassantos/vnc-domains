@@ -2,7 +2,7 @@
 
 🌍 *[English](README.md) ∙ [Português](README_pt.md)*
 
-`vnc-domains` is the repository responsible for managing the domains of the APIs of the [Você na Câmara (VNC)](#você-na-câmara-vnc)
+`vnc-domains` is the service responsible for managing the domains of the APIs of the [Você na Câmara (VNC)](#você-na-câmara-vnc)
 platform. In this repository you'll find the source code for the software domains, so it's just an auxiliary repository
 for the [`vnc-summarizer`](https://github.com/devlucassantos/vnc-summarizer) and
 [`vnc-api`](https://github.com/devlucassantos/vnc-api) software.

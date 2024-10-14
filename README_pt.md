@@ -2,7 +2,7 @@
 
 🌍 *[English](README.md) ∙ [Português](README_pt.md)*
 
-`vnc-domains` é o repositório responsável por gerenciar os domínios das APIs da plataforma
+`vnc-domains` é o serviço responsável por gerenciar os domínios das APIs da plataforma
 [Você na Câmara (VNC)](#você-na-câmara-vnc). Neste repositório você encontrará o código-fonte dos domínios das APIs,
 sendo deste modo apenas um repositório auxiliar para os softwares [`vnc-summarizer`](https://github.com/devlucassantos/vnc-summarizer)
 e [`vnc-api`](https://github.com/devlucassantos/vnc-api).
