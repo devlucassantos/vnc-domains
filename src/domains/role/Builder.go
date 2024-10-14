@@ -19,7 +19,7 @@ func NewBuilder() *builder {
 
 func (instance *builder) Id(id uuid.UUID) *builder {
 	if !utils.IsUuidValid(id) {
-		instance.invalidFields = append(instance.invalidFields, "O ID do função é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The role ID is invalid")
 		return instance
 	}
 	instance.role.id = id
@@ -28,7 +28,7 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 
 func (instance *builder) Code(code string) *builder {
 	if len(code) < 2 {
-		instance.invalidFields = append(instance.invalidFields, "O código da função é inválido")
+		instance.invalidFields = append(instance.invalidFields, "The role code is invalid")
 		return instance
 	}
 	instance.role.code = code
@@ -37,7 +37,7 @@ func (instance *builder) Code(code string) *builder {
 
 func (instance *builder) Description(description string) *builder {
 	if len(description) < 2 {
-		instance.invalidFields = append(instance.invalidFields, "A descrição da função é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The role description is invalid")
 		return instance
 	}
 	instance.role.description = description
@@ -51,7 +51,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de criação do registro da função é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The creation date of the role record is invalid")
 		return instance
 	}
 	instance.role.createdAt = createdAt
@@ -60,7 +60,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "A data de atualização do registro da função é inválida")
+		instance.invalidFields = append(instance.invalidFields, "The update date of the role record is invalid")
 		return instance
 	}
 	instance.role.updatedAt = updatedAt
