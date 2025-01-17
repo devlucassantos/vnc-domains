@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/domains/deputy"
-	"github.com/devlucassantos/vnc-domains/src/domains/external"
+	"github.com/devlucassantos/vnc-domains/src/domains/externalauthor"
 	"github.com/devlucassantos/vnc-domains/src/utils"
 	"github.com/google/uuid"
 	"strings"
@@ -85,10 +85,20 @@ func (instance *builder) ImageUrl(imageUrl string) *builder {
 	return instance
 }
 
+func (instance *builder) ImageDescription(imageDescription string) *builder {
+	imageDescription = strings.TrimSpace(imageDescription)
+	if len(imageDescription) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The proposition image description is invalid")
+		return instance
+	}
+	instance.proposition.imageDescription = imageDescription
+	return instance
+}
+
 func (instance *builder) SpecificType(specificType string) *builder {
 	specificType = strings.TrimSpace(specificType)
 	if len(specificType) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "The specific type of proposition is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The proposition specific type is invalid")
 		return instance
 	}
 	instance.proposition.specificType = specificType
@@ -100,7 +110,7 @@ func (instance *builder) Deputies(deputies []deputy.Deputy) *builder {
 	return instance
 }
 
-func (instance *builder) ExternalAuthors(externalAuthors []external.ExternalAuthor) *builder {
+func (instance *builder) ExternalAuthors(externalAuthors []externalauthor.ExternalAuthor) *builder {
 	instance.proposition.externalAuthors = externalAuthors
 	return instance
 }
@@ -117,7 +127,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The creation date of the proposition record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The creation date and time of the proposition record is invalid")
 		return instance
 	}
 	instance.proposition.createdAt = createdAt
@@ -126,7 +136,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The update date of the proposition record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The update date and time of the proposition record is invalid")
 		return instance
 	}
 	instance.proposition.updatedAt = updatedAt

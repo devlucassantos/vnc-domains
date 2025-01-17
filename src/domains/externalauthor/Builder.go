@@ -1,7 +1,8 @@
-package external
+package externalauthor
 
 import (
 	"errors"
+	"github.com/devlucassantos/vnc-domains/src/domains/externalauthortype"
 	"github.com/devlucassantos/vnc-domains/src/utils"
 	"github.com/google/uuid"
 	"strings"
@@ -36,12 +37,7 @@ func (instance *builder) Name(name string) *builder {
 	return instance
 }
 
-func (instance *builder) Type(_type string) *builder {
-	_type = strings.TrimSpace(_type)
-	if len(_type) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "The external author type is invalid")
-		return instance
-	}
+func (instance *builder) Type(_type externalauthortype.ExternalAuthorType) *builder {
 	instance.externalAuthor._type = _type
 	return instance
 }
@@ -53,7 +49,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The creation date of the external author record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The creation date and time of the external author record is invalid")
 		return instance
 	}
 	instance.externalAuthor.createdAt = createdAt
@@ -62,7 +58,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The update date of the external author record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The update date and time of the external author record is invalid")
 		return instance
 	}
 	instance.externalAuthor.updatedAt = updatedAt

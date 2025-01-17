@@ -3,27 +3,28 @@ package proposition
 import (
 	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/domains/deputy"
-	"github.com/devlucassantos/vnc-domains/src/domains/external"
+	"github.com/devlucassantos/vnc-domains/src/domains/externalauthor"
 	"github.com/google/uuid"
 	"reflect"
 	"time"
 )
 
 type Proposition struct {
-	id              uuid.UUID
-	code            int
-	originalTextUrl string
-	title           string
-	content         string
-	submittedAt     time.Time
-	imageUrl        string
-	specificType    string
-	deputies        []deputy.Deputy
-	externalAuthors []external.ExternalAuthor
-	article         article.Article
-	active          bool
-	createdAt       time.Time
-	updatedAt       time.Time
+	id               uuid.UUID
+	code             int
+	originalTextUrl  string
+	title            string
+	content          string
+	submittedAt      time.Time
+	imageUrl         string
+	imageDescription string
+	specificType     string
+	deputies         []deputy.Deputy
+	externalAuthors  []externalauthor.ExternalAuthor
+	article          article.Article
+	active           bool
+	createdAt        time.Time
+	updatedAt        time.Time
 }
 
 func (instance *Proposition) NewUpdater() *builder {
@@ -58,6 +59,10 @@ func (instance *Proposition) ImageUrl() string {
 	return instance.imageUrl
 }
 
+func (instance *Proposition) ImageDescription() string {
+	return instance.imageDescription
+}
+
 func (instance *Proposition) SpecificType() string {
 	return instance.specificType
 }
@@ -66,7 +71,7 @@ func (instance *Proposition) Deputies() []deputy.Deputy {
 	return instance.deputies
 }
 
-func (instance *Proposition) ExternalAuthors() []external.ExternalAuthor {
+func (instance *Proposition) ExternalAuthors() []externalauthor.ExternalAuthor {
 	return instance.externalAuthors
 }
 

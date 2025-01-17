@@ -29,7 +29,7 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 func (instance *builder) Description(description string) *builder {
 	description = strings.TrimSpace(description)
 	if len(description) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "The description of the article type is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The article type description is invalid")
 		return instance
 	}
 	instance.articleType.description = description
@@ -37,16 +37,30 @@ func (instance *builder) Description(description string) *builder {
 }
 
 func (instance *builder) Codes(codes string) *builder {
+	codes = strings.TrimSpace(codes)
+	if len(codes) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The article type codes is invalid")
+		return instance
+	}
 	instance.articleType.codes = codes
 	return instance
 }
 
 func (instance *builder) Color(color string) *builder {
+	color = strings.TrimSpace(color)
+	if len(color) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The article type color is invalid")
+		return instance
+	}
 	instance.articleType.color = color
 	return instance
 }
 
 func (instance *builder) SortOrder(sortOrder int) *builder {
+	if sortOrder <= 0 {
+		instance.invalidFields = append(instance.invalidFields, "The article type sort order is invalid")
+		return instance
+	}
 	instance.articleType.sortOrder = sortOrder
 	return instance
 }
@@ -58,7 +72,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The creation date of the article type record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The creation date and time of the article type record is invalid")
 		return instance
 	}
 	instance.articleType.createdAt = createdAt
@@ -67,7 +81,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The update date of the article type record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The update date and time of the article type record is invalid")
 		return instance
 	}
 	instance.articleType.updatedAt = updatedAt
