@@ -111,7 +111,7 @@ func (instance *builder) PreviousFederatedUnit(previousFederatedUnit string) *bu
 		instance.invalidFields = append(instance.invalidFields, "The deputy previous federated unit is invalid")
 		return instance
 	}
-	instance.deputy.federatedUnit = previousFederatedUnit
+	instance.deputy.previousFederatedUnit = previousFederatedUnit
 	return instance
 }
 
