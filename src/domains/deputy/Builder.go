@@ -37,6 +37,11 @@ func (instance *builder) Code(code int) *builder {
 }
 
 func (instance *builder) Cpf(cpf string) *builder {
+	cpf = strings.TrimSpace(cpf)
+	if len(cpf) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The deputy CPF is invalid")
+		return instance
+	}
 	instance.deputy.cpf = cpf
 	return instance
 }
@@ -52,6 +57,11 @@ func (instance *builder) Name(name string) *builder {
 }
 
 func (instance *builder) ElectoralName(electoralName string) *builder {
+	electoralName = strings.TrimSpace(electoralName)
+	if len(electoralName) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The deputy electoral name is invalid")
+		return instance
+	}
 	instance.deputy.electoralName = electoralName
 	return instance
 }
@@ -65,13 +75,43 @@ func (instance *builder) ImageUrl(imageUrl string) *builder {
 	return instance
 }
 
+func (instance *builder) ImageDescription(imageDescription string) *builder {
+	imageDescription = strings.TrimSpace(imageDescription)
+	if len(imageDescription) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The deputy image description is invalid")
+		return instance
+	}
+	instance.deputy.imageDescription = imageDescription
+	return instance
+}
+
 func (instance *builder) Party(party party.Party) *builder {
 	instance.deputy.party = party
 	return instance
 }
 
-func (instance *builder) PartyInTheProposition(party party.Party) *builder {
-	instance.deputy.partyInTheProposition = party
+func (instance *builder) FederatedUnit(federatedUnit string) *builder {
+	federatedUnit = strings.TrimSpace(federatedUnit)
+	if len(federatedUnit) != 2 {
+		instance.invalidFields = append(instance.invalidFields, "The deputy federated unit is invalid")
+		return instance
+	}
+	instance.deputy.federatedUnit = federatedUnit
+	return instance
+}
+
+func (instance *builder) PreviousParty(previousParty party.Party) *builder {
+	instance.deputy.previousParty = previousParty
+	return instance
+}
+
+func (instance *builder) PreviousFederatedUnit(previousFederatedUnit string) *builder {
+	previousFederatedUnit = strings.TrimSpace(previousFederatedUnit)
+	if len(previousFederatedUnit) != 2 {
+		instance.invalidFields = append(instance.invalidFields, "The deputy previous federated unit is invalid")
+		return instance
+	}
+	instance.deputy.federatedUnit = previousFederatedUnit
 	return instance
 }
 

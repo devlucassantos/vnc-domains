@@ -14,8 +14,11 @@ type Deputy struct {
 	name                  string
 	electoralName         string
 	imageUrl              string
+	imageDescription      string
 	party                 party.Party
-	partyInTheProposition party.Party
+	federatedUnit         string
+	previousParty         party.Party
+	previousFederatedUnit string
 	active                bool
 	createdAt             time.Time
 	updatedAt             time.Time
@@ -49,12 +52,24 @@ func (instance *Deputy) ImageUrl() string {
 	return instance.imageUrl
 }
 
+func (instance *Deputy) ImageDescription() string {
+	return instance.imageDescription
+}
+
 func (instance *Deputy) Party() party.Party {
 	return instance.party
 }
 
-func (instance *Deputy) PartyInTheProposition() party.Party {
-	return instance.partyInTheProposition
+func (instance *Deputy) FederatedUnit() string {
+	return instance.federatedUnit
+}
+
+func (instance *Deputy) PreviousParty() party.Party {
+	return instance.previousParty
+}
+
+func (instance *Deputy) PreviousFederatedUnit() string {
+	return instance.previousFederatedUnit
 }
 
 func (instance *Deputy) Active() bool {
@@ -75,7 +90,8 @@ func (instance *Deputy) IsEqual(deputy Deputy) bool {
 		instance.name == deputy.name &&
 		instance.electoralName == deputy.electoralName &&
 		instance.imageUrl == deputy.imageUrl &&
-		instance.party.IsEqual(deputy.party)
+		instance.party.IsEqual(deputy.party) &&
+		instance.federatedUnit == deputy.federatedUnit
 }
 
 func (instance *Deputy) IsZero() bool {

@@ -27,7 +27,8 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 }
 
 func (instance *builder) Code(code string) *builder {
-	if len(code) < 2 {
+	code = strings.TrimSpace(code)
+	if len(code) == 0 {
 		instance.invalidFields = append(instance.invalidFields, "The role code is invalid")
 		return instance
 	}
@@ -36,7 +37,8 @@ func (instance *builder) Code(code string) *builder {
 }
 
 func (instance *builder) Description(description string) *builder {
-	if len(description) < 2 {
+	description = strings.TrimSpace(description)
+	if len(description) == 0 {
 		instance.invalidFields = append(instance.invalidFields, "The role description is invalid")
 		return instance
 	}

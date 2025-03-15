@@ -2,6 +2,7 @@ package voting
 
 import (
 	"errors"
+	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/domains/legislativebody"
 	"github.com/devlucassantos/vnc-domains/src/domains/proposition"
 	"github.com/devlucassantos/vnc-domains/src/utils"
@@ -35,6 +36,16 @@ func (instance *builder) Code(code string) *builder {
 		return instance
 	}
 	instance.voting.code = code
+	return instance
+}
+
+func (instance *builder) Title(title string) *builder {
+	title = strings.TrimSpace(title)
+	if len(title) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The voting title is invalid")
+		return instance
+	}
+	instance.voting.title = title
 	return instance
 }
 
@@ -79,6 +90,16 @@ func (instance *builder) RelatedPropositions(relatedPropositions []proposition.P
 
 func (instance *builder) AffectedPropositions(affectedPropositions []proposition.Proposition) *builder {
 	instance.voting.affectedPropositions = affectedPropositions
+	return instance
+}
+
+func (instance *builder) Article(article article.Article) *builder {
+	instance.voting.article = article
+	return instance
+}
+
+func (instance *builder) RelatedArticles(relatedArticles []article.Article) *builder {
+	instance.voting.relatedArticles = relatedArticles
 	return instance
 }
 

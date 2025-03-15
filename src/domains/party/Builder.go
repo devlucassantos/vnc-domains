@@ -46,6 +46,11 @@ func (instance *builder) Name(name string) *builder {
 }
 
 func (instance *builder) Acronym(acronym string) *builder {
+	acronym = strings.TrimSpace(acronym)
+	if len(acronym) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The party acronym is invalid")
+		return instance
+	}
 	instance.party.acronym = acronym
 	return instance
 }
@@ -56,6 +61,16 @@ func (instance *builder) ImageUrl(imageUrl string) *builder {
 		return instance
 	}
 	instance.party.imageUrl = imageUrl
+	return instance
+}
+
+func (instance *builder) ImageDescription(imageDescription string) *builder {
+	imageDescription = strings.TrimSpace(imageDescription)
+	if len(imageDescription) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The party image description is invalid")
+		return instance
+	}
+	instance.party.imageDescription = imageDescription
 	return instance
 }
 

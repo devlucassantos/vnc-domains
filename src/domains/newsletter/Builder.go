@@ -56,6 +56,11 @@ func (instance *builder) Description(description string) *builder {
 	return instance
 }
 
+func (instance *builder) Articles(articles []article.Article) *builder {
+	instance.newsletter.articles = articles
+	return instance
+}
+
 func (instance *builder) Article(article article.Article) *builder {
 	instance.newsletter.article = article
 	return instance

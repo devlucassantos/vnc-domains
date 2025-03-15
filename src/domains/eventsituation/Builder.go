@@ -39,7 +39,7 @@ func (instance *builder) Description(description string) *builder {
 func (instance *builder) Codes(codes string) *builder {
 	codes = strings.TrimSpace(codes)
 	if len(codes) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "The event situation codes is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The event situation codes are invalid")
 		return instance
 	}
 	instance.eventSituation.codes = codes
@@ -53,6 +53,11 @@ func (instance *builder) Color(color string) *builder {
 		return instance
 	}
 	instance.eventSituation.color = color
+	return instance
+}
+
+func (instance *builder) IsFinished(isFinished bool) *builder {
+	instance.eventSituation.isFinished = isFinished
 	return instance
 }
 

@@ -1,6 +1,7 @@
 package voting
 
 import (
+	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/domains/legislativebody"
 	"github.com/devlucassantos/vnc-domains/src/domains/proposition"
 	"github.com/google/uuid"
@@ -11,6 +12,7 @@ import (
 type Voting struct {
 	id                   uuid.UUID
 	code                 string
+	title                string
 	result               string
 	resultAnnouncedAt    time.Time
 	isApproved           bool
@@ -18,6 +20,8 @@ type Voting struct {
 	mainProposition      proposition.Proposition
 	relatedPropositions  []proposition.Proposition
 	affectedPropositions []proposition.Proposition
+	article              article.Article
+	relatedArticles      []article.Article
 	active               bool
 	createdAt            time.Time
 	updatedAt            time.Time
@@ -33,6 +37,10 @@ func (instance *Voting) Id() uuid.UUID {
 
 func (instance *Voting) Code() string {
 	return instance.code
+}
+
+func (instance *Voting) Title() string {
+	return instance.title
 }
 
 func (instance *Voting) Result() string {
@@ -61,6 +69,14 @@ func (instance *Voting) RelatedPropositions() []proposition.Proposition {
 
 func (instance *Voting) AffectedPropositions() []proposition.Proposition {
 	return instance.affectedPropositions
+}
+
+func (instance *Voting) Article() article.Article {
+	return instance.article
+}
+
+func (instance *Voting) RelatedArticles() []article.Article {
+	return instance.relatedArticles
 }
 
 func (instance *Voting) Active() bool {

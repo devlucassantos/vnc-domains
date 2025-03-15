@@ -2,6 +2,7 @@ package article
 
 import (
 	"errors"
+	"github.com/devlucassantos/vnc-domains/src/domains/articlesituation"
 	"github.com/devlucassantos/vnc-domains/src/domains/articletype"
 	"github.com/devlucassantos/vnc-domains/src/utils"
 	"github.com/google/uuid"
@@ -28,7 +29,8 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 }
 
 func (instance *builder) Title(title string) *builder {
-	if len(title) < 10 {
+	title = strings.TrimSpace(title)
+	if len(title) == 0 {
 		instance.invalidFields = append(instance.invalidFields, "The article title is invalid")
 		return instance
 	}
@@ -38,7 +40,7 @@ func (instance *builder) Title(title string) *builder {
 
 func (instance *builder) Content(content string) *builder {
 	content = strings.TrimSpace(content)
-	if len(content) < 10 {
+	if len(content) == 0 {
 		instance.invalidFields = append(instance.invalidFields, "The article content is invalid")
 		return instance
 	}
@@ -46,12 +48,27 @@ func (instance *builder) Content(content string) *builder {
 	return instance
 }
 
-func (instance *builder) ImageUrl(imageUrl string) *builder {
-	if !utils.IsUrlValid(imageUrl) {
-		instance.invalidFields = append(instance.invalidFields, "The article image URL is invalid")
+func (instance *builder) MultimediaUrl(multimediaUrl string) *builder {
+	if !utils.IsUrlValid(multimediaUrl) {
+		instance.invalidFields = append(instance.invalidFields, "The article multimedia URL is invalid")
 		return instance
 	}
-	instance.article.imageUrl = imageUrl
+	instance.article.multimediaUrl = multimediaUrl
+	return instance
+}
+
+func (instance *builder) MultimediaDescription(multimediaDescription string) *builder {
+	multimediaDescription = strings.TrimSpace(multimediaDescription)
+	if len(multimediaDescription) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The article multimedia description is invalid")
+		return instance
+	}
+	instance.article.multimediaDescription = multimediaDescription
+	return instance
+}
+
+func (instance *builder) Situation(situation articlesituation.ArticleSituation) *builder {
+	instance.article.situation = situation
 	return instance
 }
 
@@ -89,7 +106,7 @@ func (instance *builder) ViewLater(viewLater bool) *builder {
 
 func (instance *builder) ViewLaterSetAt(viewLaterSetAt time.Time) *builder {
 	if viewLaterSetAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The date and time the article was marked for later viewing are invalid")
+		instance.invalidFields = append(instance.invalidFields, "The date and time the article was bookmarked for later viewing is invalid")
 		return instance
 	}
 	instance.article.viewLaterSetAt = viewLaterSetAt
@@ -101,9 +118,14 @@ func (instance *builder) Type(_type articletype.ArticleType) *builder {
 	return instance
 }
 
+func (instance *builder) SpecificType(specificType articletype.ArticleType) *builder {
+	instance.article.specificType = specificType
+	return instance
+}
+
 func (instance *builder) ReferenceDateTime(referenceDateTime time.Time) *builder {
 	if referenceDateTime.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The reference date and time of the article are invalid")
+		instance.invalidFields = append(instance.invalidFields, "The reference date and time of the article is invalid")
 		return instance
 	}
 	instance.article.referenceDateTime = referenceDateTime

@@ -2,6 +2,7 @@ package event
 
 import (
 	"errors"
+	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/domains/eventagendaitem"
 	"github.com/devlucassantos/vnc-domains/src/domains/eventsituation"
 	"github.com/devlucassantos/vnc-domains/src/domains/eventtype"
@@ -149,6 +150,16 @@ func (instance *builder) AgendaItems(agendaItems []eventagendaitem.EventAgendaIt
 
 func (instance *builder) Active(active bool) *builder {
 	instance.event.active = active
+	return instance
+}
+
+func (instance *builder) Article(article article.Article) *builder {
+	instance.event.article = article
+	return instance
+}
+
+func (instance *builder) RelatedArticles(relatedArticles []article.Article) *builder {
+	instance.event.relatedArticles = relatedArticles
 	return instance
 }
 

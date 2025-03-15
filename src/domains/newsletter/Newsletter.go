@@ -12,6 +12,7 @@ type Newsletter struct {
 	referenceDate time.Time
 	title         string
 	description   string
+	articles      []article.Article
 	article       article.Article
 	active        bool
 	createdAt     time.Time
@@ -36,6 +37,10 @@ func (instance *Newsletter) Title() string {
 
 func (instance *Newsletter) Description() string {
 	return instance.description
+}
+
+func (instance *Newsletter) Articles() []article.Article {
+	return instance.articles
 }
 
 func (instance *Newsletter) Article() article.Article {

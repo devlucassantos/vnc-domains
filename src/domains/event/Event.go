@@ -1,6 +1,7 @@
 package event
 
 import (
+	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/domains/eventagendaitem"
 	"github.com/devlucassantos/vnc-domains/src/domains/eventsituation"
 	"github.com/devlucassantos/vnc-domains/src/domains/eventtype"
@@ -28,6 +29,8 @@ type Event struct {
 	legislativeBodies []legislativebody.LegislativeBody
 	requirements      []proposition.Proposition
 	agendaItems       []eventagendaitem.EventAgendaItem
+	article           article.Article
+	relatedArticles   []article.Article
 	active            bool
 	createdAt         time.Time
 	updatedAt         time.Time
@@ -101,6 +104,14 @@ func (instance *Event) AgendaItems() []eventagendaitem.EventAgendaItem {
 	return instance.agendaItems
 }
 
+func (instance *Event) Article() article.Article {
+	return instance.article
+}
+
+func (instance *Event) RelatedArticles() []article.Article {
+	return instance.relatedArticles
+}
+
 func (instance *Event) Active() bool {
 	return instance.active
 }
@@ -111,6 +122,18 @@ func (instance *Event) CreatedAt() time.Time {
 
 func (instance *Event) UpdatedAt() time.Time {
 	return instance.updatedAt
+}
+
+func (instance *Event) IsEqual(event Event) bool {
+	return instance.code == event.code &&
+		instance.description == event.description &&
+		instance.startsAt == event.startsAt &&
+		instance.endsAt == event.endsAt &&
+		instance.location == event.location &&
+		instance.isInternal == event.isInternal &&
+		instance.videoUrl == event.videoUrl &&
+		instance.specificSituation == event.specificSituation &&
+		instance.situation.IsEqual(event.situation)
 }
 
 func (instance *Event) IsZero() bool {

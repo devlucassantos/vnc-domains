@@ -34,8 +34,9 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 }
 
 func (instance *builder) FirstName(firstName string) *builder {
+	firstName = strings.TrimSpace(firstName)
 	if len(firstName) < 3 {
-		instance.invalidFields = append(instance.invalidFields, "The user name is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The user's name is invalid")
 		return instance
 	}
 	instance.user.firstName = firstName
@@ -43,6 +44,7 @@ func (instance *builder) FirstName(firstName string) *builder {
 }
 
 func (instance *builder) LastName(lastName string) *builder {
+	lastName = strings.TrimSpace(lastName)
 	if len(lastName) < 3 {
 		instance.invalidFields = append(instance.invalidFields, "The user's surname is invalid")
 		return instance
@@ -52,6 +54,7 @@ func (instance *builder) LastName(lastName string) *builder {
 }
 
 func (instance *builder) Email(email string) *builder {
+	email = strings.TrimSpace(email)
 	if !utils.IsEmailValid(email) {
 		instance.invalidFields = append(instance.invalidFields, "The user's email address is invalid")
 		return instance
@@ -111,6 +114,7 @@ func (instance *builder) Tokens(sessionId uuid.UUID) *builder {
 }
 
 func (instance *builder) ActivationCode(activationCode string) *builder {
+	activationCode = strings.TrimSpace(activationCode)
 	if len(activationCode) != 6 {
 		instance.invalidFields = append(instance.invalidFields, "The activation code is invalid. The activation "+
 			"code must be exactly 6 characters long")

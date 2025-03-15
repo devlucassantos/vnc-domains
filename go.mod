@@ -1,6 +1,6 @@
 module github.com/devlucassantos/vnc-domains
 
-go 1.23
+go 1.24.1
 
 require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
@@ -14,5 +14,5 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasttemplate v1.2.2 // indirect
-	golang.org/x/sys v0.29.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
 )

@@ -39,7 +39,7 @@ func (instance *builder) Description(description string) *builder {
 func (instance *builder) Codes(codes string) *builder {
 	codes = strings.TrimSpace(codes)
 	if len(codes) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "The event type codes is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The event type codes are invalid")
 		return instance
 	}
 	instance.eventType.codes = codes

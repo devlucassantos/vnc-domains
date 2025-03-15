@@ -2,10 +2,10 @@ package proposition
 
 import (
 	"errors"
-	"fmt"
 	"github.com/devlucassantos/vnc-domains/src/domains/article"
 	"github.com/devlucassantos/vnc-domains/src/domains/deputy"
 	"github.com/devlucassantos/vnc-domains/src/domains/externalauthor"
+	"github.com/devlucassantos/vnc-domains/src/domains/propositiontype"
 	"github.com/devlucassantos/vnc-domains/src/utils"
 	"github.com/google/uuid"
 	"strings"
@@ -41,16 +41,27 @@ func (instance *builder) Code(code int) *builder {
 
 func (instance *builder) OriginalTextUrl(originalTextUrl string) *builder {
 	if !utils.IsUrlValid(originalTextUrl) {
-		instance.invalidFields = append(instance.invalidFields, "The original proposition URL is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The proposition original text URL is invalid")
 		return instance
 	}
 	instance.proposition.originalTextUrl = originalTextUrl
 	return instance
 }
 
+func (instance *builder) OriginalTextMimeType(originalTextMimeType string) *builder {
+	originalTextMimeType = strings.TrimSpace(originalTextMimeType)
+	if len(originalTextMimeType) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The proposition original text mime type is invalid")
+		return instance
+	}
+	instance.proposition.originalTextMimeType = originalTextMimeType
+	return instance
+}
+
 func (instance *builder) Title(title string) *builder {
-	if len(title) < 10 {
-		instance.proposition.title = fmt.Sprintf("Nova proposição de %s", time.Now().Format("02/01/2006 às 15h04"))
+	title = strings.TrimSpace(title)
+	if len(title) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The proposition title is invalid")
 		return instance
 	}
 	instance.proposition.title = title
@@ -60,7 +71,7 @@ func (instance *builder) Title(title string) *builder {
 func (instance *builder) Content(content string) *builder {
 	content = strings.TrimSpace(content)
 	if len(content) == 0 {
-		instance.invalidFields = append(instance.invalidFields, "The content of the proposition summary is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The proposition content is invalid")
 		return instance
 	}
 	instance.proposition.content = content
@@ -69,7 +80,7 @@ func (instance *builder) Content(content string) *builder {
 
 func (instance *builder) SubmittedAt(submittedAt time.Time) *builder {
 	if submittedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The date of submission of the proposition is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The submission date and time of the proposition is invalid")
 		return instance
 	}
 	instance.proposition.submittedAt = submittedAt
@@ -105,6 +116,11 @@ func (instance *builder) SpecificType(specificType string) *builder {
 	return instance
 }
 
+func (instance *builder) Type(_type propositiontype.PropositionType) *builder {
+	instance.proposition._type = _type
+	return instance
+}
+
 func (instance *builder) Deputies(deputies []deputy.Deputy) *builder {
 	instance.proposition.deputies = deputies
 	return instance
@@ -117,6 +133,11 @@ func (instance *builder) ExternalAuthors(externalAuthors []externalauthor.Extern
 
 func (instance *builder) Article(article article.Article) *builder {
 	instance.proposition.article = article
+	return instance
+}
+
+func (instance *builder) RelatedArticles(relatedArticles []article.Article) *builder {
+	instance.proposition.relatedArticles = relatedArticles
 	return instance
 }
 

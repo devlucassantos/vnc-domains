@@ -7,14 +7,15 @@ import (
 )
 
 type Party struct {
-	id        uuid.UUID
-	code      int
-	name      string
-	acronym   string
-	imageUrl  string
-	active    bool
-	createdAt time.Time
-	updatedAt time.Time
+	id               uuid.UUID
+	code             int
+	name             string
+	acronym          string
+	imageUrl         string
+	imageDescription string
+	active           bool
+	createdAt        time.Time
+	updatedAt        time.Time
 }
 
 func (instance *Party) NewUpdater() *builder {
@@ -39,6 +40,10 @@ func (instance *Party) Acronym() string {
 
 func (instance *Party) ImageUrl() string {
 	return instance.imageUrl
+}
+
+func (instance *Party) ImageDescription() string {
+	return instance.imageDescription
 }
 
 func (instance *Party) Active() bool {

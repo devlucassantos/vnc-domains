@@ -11,6 +11,7 @@ type EventSituation struct {
 	description string
 	codes       string
 	color       string
+	isFinished  bool
 	active      bool
 	createdAt   time.Time
 	updatedAt   time.Time
@@ -36,6 +37,10 @@ func (instance *EventSituation) Color() string {
 	return instance.color
 }
 
+func (instance *EventSituation) IsFinished() bool {
+	return instance.isFinished
+}
+
 func (instance *EventSituation) Active() bool {
 	return instance.active
 }
@@ -46,6 +51,13 @@ func (instance *EventSituation) CreatedAt() time.Time {
 
 func (instance *EventSituation) UpdatedAt() time.Time {
 	return instance.updatedAt
+}
+
+func (instance *EventSituation) IsEqual(eventSituation EventSituation) bool {
+	return instance.description == eventSituation.description &&
+		instance.codes == eventSituation.codes &&
+		instance.color == eventSituation.color &&
+		instance.isFinished == eventSituation.isFinished
 }
 
 func (instance *EventSituation) IsZero() bool {
