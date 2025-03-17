@@ -27,7 +27,8 @@ func (instance *builder) Id(id uuid.UUID) *builder {
 }
 
 func (instance *builder) Code(code string) *builder {
-	if len(code) < 2 {
+	code = strings.TrimSpace(code)
+	if len(code) == 0 {
 		instance.invalidFields = append(instance.invalidFields, "The role code is invalid")
 		return instance
 	}
@@ -36,7 +37,8 @@ func (instance *builder) Code(code string) *builder {
 }
 
 func (instance *builder) Description(description string) *builder {
-	if len(description) < 2 {
+	description = strings.TrimSpace(description)
+	if len(description) == 0 {
 		instance.invalidFields = append(instance.invalidFields, "The role description is invalid")
 		return instance
 	}
@@ -51,7 +53,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The creation date of the role record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The creation date and time of the role record is invalid")
 		return instance
 	}
 	instance.role.createdAt = createdAt
@@ -60,7 +62,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The update date of the role record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The update date and time of the role record is invalid")
 		return instance
 	}
 	instance.role.updatedAt = updatedAt

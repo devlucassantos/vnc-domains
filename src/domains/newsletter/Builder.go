@@ -56,6 +56,11 @@ func (instance *builder) Description(description string) *builder {
 	return instance
 }
 
+func (instance *builder) Articles(articles []article.Article) *builder {
+	instance.newsletter.articles = articles
+	return instance
+}
+
 func (instance *builder) Article(article article.Article) *builder {
 	instance.newsletter.article = article
 	return instance
@@ -68,7 +73,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The creation date of the newsletter record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The creation date and time of the newsletter record is invalid")
 		return instance
 	}
 	instance.newsletter.createdAt = createdAt
@@ -77,7 +82,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The update date of the newsletter record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The update date and time of the newsletter record is invalid")
 		return instance
 	}
 	instance.newsletter.updatedAt = updatedAt

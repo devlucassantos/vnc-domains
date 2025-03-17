@@ -46,6 +46,11 @@ func (instance *builder) Name(name string) *builder {
 }
 
 func (instance *builder) Acronym(acronym string) *builder {
+	acronym = strings.TrimSpace(acronym)
+	if len(acronym) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The party acronym is invalid")
+		return instance
+	}
 	instance.party.acronym = acronym
 	return instance
 }
@@ -59,6 +64,16 @@ func (instance *builder) ImageUrl(imageUrl string) *builder {
 	return instance
 }
 
+func (instance *builder) ImageDescription(imageDescription string) *builder {
+	imageDescription = strings.TrimSpace(imageDescription)
+	if len(imageDescription) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The party image description is invalid")
+		return instance
+	}
+	instance.party.imageDescription = imageDescription
+	return instance
+}
+
 func (instance *builder) Active(active bool) *builder {
 	instance.party.active = active
 	return instance
@@ -66,7 +81,7 @@ func (instance *builder) Active(active bool) *builder {
 
 func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 	if createdAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The creation date of the party record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The creation date and time of the party record is invalid")
 		return instance
 	}
 	instance.party.createdAt = createdAt
@@ -75,7 +90,7 @@ func (instance *builder) CreatedAt(createdAt time.Time) *builder {
 
 func (instance *builder) UpdatedAt(updatedAt time.Time) *builder {
 	if updatedAt.IsZero() {
-		instance.invalidFields = append(instance.invalidFields, "The update date of the party record is invalid")
+		instance.invalidFields = append(instance.invalidFields, "The update date and time of the party record is invalid")
 		return instance
 	}
 	instance.party.updatedAt = updatedAt

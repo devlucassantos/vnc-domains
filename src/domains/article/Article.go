@@ -1,6 +1,7 @@
 package article
 
 import (
+	"github.com/devlucassantos/vnc-domains/src/domains/articlesituation"
 	"github.com/devlucassantos/vnc-domains/src/domains/articletype"
 	"github.com/google/uuid"
 	"reflect"
@@ -8,20 +9,23 @@ import (
 )
 
 type Article struct {
-	id                uuid.UUID
-	title             string
-	content           string
-	imageUrl          string
-	averageRating     float64
-	numberOfRatings   int
-	userRating        int
-	viewLater         bool
-	viewLaterSetAt    time.Time
-	_type             articletype.ArticleType
-	referenceDateTime time.Time
-	active            bool
-	createdAt         time.Time
-	updatedAt         time.Time
+	id                    uuid.UUID
+	title                 string
+	content               string
+	multimediaUrl         string
+	multimediaDescription string
+	situation             articlesituation.ArticleSituation
+	averageRating         float64
+	numberOfRatings       int
+	userRating            int
+	viewLater             bool
+	viewLaterSetAt        time.Time
+	_type                 articletype.ArticleType
+	specificType          articletype.ArticleType
+	referenceDateTime     time.Time
+	active                bool
+	createdAt             time.Time
+	updatedAt             time.Time
 }
 
 func (instance *Article) NewUpdater() *builder {
@@ -40,8 +44,16 @@ func (instance *Article) Content() string {
 	return instance.content
 }
 
-func (instance *Article) ImageUrl() string {
-	return instance.imageUrl
+func (instance *Article) MultimediaUrl() string {
+	return instance.multimediaUrl
+}
+
+func (instance *Article) MultimediaDescription() string {
+	return instance.multimediaDescription
+}
+
+func (instance *Article) Situation() articlesituation.ArticleSituation {
+	return instance.situation
 }
 
 func (instance *Article) AverageRating() float64 {
@@ -66,6 +78,10 @@ func (instance *Article) ViewLaterSetAt() time.Time {
 
 func (instance *Article) Type() articletype.ArticleType {
 	return instance._type
+}
+
+func (instance *Article) SpecificType() articletype.ArticleType {
+	return instance.specificType
 }
 
 func (instance *Article) ReferenceDateTime() time.Time {

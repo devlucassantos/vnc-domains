@@ -1,6 +1,7 @@
-package external
+package externalauthor
 
 import (
+	"github.com/devlucassantos/vnc-domains/src/domains/externalauthortype"
 	"github.com/google/uuid"
 	"reflect"
 	"time"
@@ -9,7 +10,7 @@ import (
 type ExternalAuthor struct {
 	id        uuid.UUID
 	name      string
-	_type     string
+	_type     externalauthortype.ExternalAuthorType
 	active    bool
 	createdAt time.Time
 	updatedAt time.Time
@@ -27,7 +28,7 @@ func (instance *ExternalAuthor) Name() string {
 	return instance.name
 }
 
-func (instance *ExternalAuthor) Type() string {
+func (instance *ExternalAuthor) Type() externalauthortype.ExternalAuthorType {
 	return instance._type
 }
 
