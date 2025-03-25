@@ -64,6 +64,25 @@ func (instance *builder) EndsAt(endsAt time.Time) *builder {
 	return instance
 }
 
+func (instance *builder) Result(result string) *builder {
+	result = strings.TrimSpace(result)
+	if len(result) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The article result is invalid")
+		return instance
+	}
+	instance.articleSituation.result = result
+	return instance
+}
+
+func (instance *builder) ResultAnnouncedAt(resultAnnouncedAt time.Time) *builder {
+	if resultAnnouncedAt.IsZero() {
+		instance.invalidFields = append(instance.invalidFields, "The date and time of the article result announcement is invalid")
+		return instance
+	}
+	instance.articleSituation.resultAnnouncedAt = resultAnnouncedAt
+	return instance
+}
+
 func (instance *builder) IsApproved(isApproved bool) *builder {
 	instance.articleSituation.isApproved = isApproved
 	return instance

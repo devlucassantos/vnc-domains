@@ -7,12 +7,14 @@ import (
 )
 
 type ArticleSituation struct {
-	id          uuid.UUID
-	description string
-	color       string
-	startsAt    time.Time
-	endsAt      time.Time
-	isApproved  bool
+	id                uuid.UUID
+	description       string
+	color             string
+	startsAt          time.Time
+	endsAt            time.Time
+	result            string
+	resultAnnouncedAt time.Time
+	isApproved        bool
 }
 
 func (instance *ArticleSituation) NewUpdater() *builder {
@@ -37,6 +39,14 @@ func (instance *ArticleSituation) StartsAt() time.Time {
 
 func (instance *ArticleSituation) EndsAt() time.Time {
 	return instance.endsAt
+}
+
+func (instance *ArticleSituation) Result() string {
+	return instance.result
+}
+
+func (instance *ArticleSituation) ResultAnnouncedAt() time.Time {
+	return instance.resultAnnouncedAt
 }
 
 func (instance *ArticleSituation) IsApproved() bool {
