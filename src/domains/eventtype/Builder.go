@@ -56,6 +56,15 @@ func (instance *builder) Color(color string) *builder {
 	return instance
 }
 
+func (instance *builder) SortOrder(sortOrder int) *builder {
+	if sortOrder <= 0 {
+		instance.invalidFields = append(instance.invalidFields, "The event type sort order is invalid")
+		return instance
+	}
+	instance.eventType.sortOrder = sortOrder
+	return instance
+}
+
 func (instance *builder) Active(active bool) *builder {
 	instance.eventType.active = active
 	return instance

@@ -11,6 +11,7 @@ type EventType struct {
 	description string
 	codes       string
 	color       string
+	sortOrder   int
 	active      bool
 	createdAt   time.Time
 	updatedAt   time.Time
@@ -34,6 +35,10 @@ func (instance *EventType) Codes() string {
 
 func (instance *EventType) Color() string {
 	return instance.color
+}
+
+func (instance *EventType) SortOrder() int {
+	return instance.sortOrder
 }
 
 func (instance *EventType) Active() bool {
