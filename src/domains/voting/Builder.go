@@ -49,6 +49,16 @@ func (instance *builder) Title(title string) *builder {
 	return instance
 }
 
+func (instance *builder) Description(description string) *builder {
+	description = strings.TrimSpace(description)
+	if len(description) == 0 {
+		instance.invalidFields = append(instance.invalidFields, "The voting description is invalid")
+		return instance
+	}
+	instance.voting.description = description
+	return instance
+}
+
 func (instance *builder) Result(result string) *builder {
 	result = strings.TrimSpace(result)
 	if len(result) == 0 {

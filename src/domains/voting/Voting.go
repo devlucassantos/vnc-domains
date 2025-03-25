@@ -13,6 +13,7 @@ type Voting struct {
 	id                   uuid.UUID
 	code                 string
 	title                string
+	description          string
 	result               string
 	resultAnnouncedAt    time.Time
 	isApproved           bool
@@ -41,6 +42,10 @@ func (instance *Voting) Code() string {
 
 func (instance *Voting) Title() string {
 	return instance.title
+}
+
+func (instance *Voting) Description() string {
+	return instance.description
 }
 
 func (instance *Voting) Result() string {
