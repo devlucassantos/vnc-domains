@@ -83,7 +83,7 @@ func (instance *builder) ResultAnnouncedAt(resultAnnouncedAt time.Time) *builder
 	return instance
 }
 
-func (instance *builder) IsApproved(isApproved bool) *builder {
+func (instance *builder) IsApproved(isApproved *bool) *builder {
 	instance.articleSituation.isApproved = isApproved
 	return instance
 }

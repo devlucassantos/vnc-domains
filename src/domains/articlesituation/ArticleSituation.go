@@ -14,7 +14,7 @@ type ArticleSituation struct {
 	endsAt            time.Time
 	result            string
 	resultAnnouncedAt time.Time
-	isApproved        bool
+	isApproved        *bool
 }
 
 func (instance *ArticleSituation) NewUpdater() *builder {
@@ -49,7 +49,7 @@ func (instance *ArticleSituation) ResultAnnouncedAt() time.Time {
 	return instance.resultAnnouncedAt
 }
 
-func (instance *ArticleSituation) IsApproved() bool {
+func (instance *ArticleSituation) IsApproved() *bool {
 	return instance.isApproved
 }
 

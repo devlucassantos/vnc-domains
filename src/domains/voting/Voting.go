@@ -16,7 +16,7 @@ type Voting struct {
 	description          string
 	result               string
 	resultAnnouncedAt    time.Time
-	isApproved           bool
+	isApproved           *bool
 	legislativeBody      legislativebody.LegislativeBody
 	mainProposition      proposition.Proposition
 	relatedPropositions  []proposition.Proposition
@@ -56,7 +56,7 @@ func (instance *Voting) ResultAnnouncedAt() time.Time {
 	return instance.resultAnnouncedAt
 }
 
-func (instance *Voting) IsApproved() bool {
+func (instance *Voting) IsApproved() *bool {
 	return instance.isApproved
 }
 
